@@ -1,4 +1,0 @@
-CourseName: hhhh
-InstructorName: hhhh
-Schedule: 12.12.2022
-Credits: 45

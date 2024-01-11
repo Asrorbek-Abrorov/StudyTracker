@@ -5,7 +5,7 @@ namespace StudyTracker.Services;
 
 public class StudyPlanService
 {
-    private const string StudyPlanFilePath = "/home/as_abrorov/RiderProjects/StudyTracker/StudyTracker/src/studyplan.txt";
+    private const string StudyPlanFilePath = "../../../../StudyTracker/src/studyplan.txt";
 
     public void SaveStudyPlan(StudyPlan studyPlan)
     {

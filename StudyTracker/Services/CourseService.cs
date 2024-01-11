@@ -5,7 +5,7 @@ namespace StudyTracker.Services;
 
 public class CourseService
 {
-    private const string CoursesFilePath = "/home/as_abrorov/RiderProjects/StudyTracker/StudyTracker/src/courses.txt";
+    private const string CoursesFilePath = "../../../../StudyTracker/src/courses.txt";
 
     public void SaveCourse(Course course)
     {

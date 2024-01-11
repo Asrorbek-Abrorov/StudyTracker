@@ -5,7 +5,7 @@ namespace StudyTracker.Services;
 
 public class ProgressRecordService
 {
-    private const string ProgressRecordFilePath = "/home/as_abrorov/RiderProjects/StudyTracker/StudyTracker/src/progressrecord.txt";
+    private const string ProgressRecordFilePath = "../../../../StudyTracker/src/progressrecord.txt";
 
     public void SaveProgressRecord(ProgressRecord progressRecord)
     {
