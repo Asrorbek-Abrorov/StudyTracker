@@ -1,36 +1,37 @@
 using Spectre.Console;
 using StudyTracker.Services;
 
-namespace StudyTracker.Uis;
-
-public class CourseUi
+namespace StudyTracker.Uis
 {
-    private readonly CourseService courseService;
-
-    public CourseUi(CourseService courseService)
+    public class CourseUi
     {
-        this.courseService = courseService;
-    }
+        private readonly CourseService courseService;
 
-    public void DisplayCourseDetails()
-    {
-        var course = courseService.GetCourse();
-
-        if (course != null)
+        public CourseUi(CourseService courseService)
         {
-            var table = new Table().Border(TableBorder.Rounded);
-            table.AddColumn("Course Name");
-            table.AddColumn("Instructor");
-            table.AddColumn("Schedule");
-            table.AddColumn("Credits");
-
-            table.AddRow(course.CourseName, course.InstructorName, course.Schedule, course.Credits.ToString());
-
-            AnsiConsole.Render(table);
+            this.courseService = courseService;
         }
-        else
+
+        public void DisplayCourseDetails()
         {
-            AnsiConsole.MarkupLine("[bold red]No course found.[/]");
+            var course = courseService.GetCourse();
+
+            if (course != null)
+            {
+                var table = new Table().Border(TableBorder.Rounded);
+                table.AddColumn("Course Name");
+                table.AddColumn("Instructor");
+                table.AddColumn("Schedule");
+                table.AddColumn("Credits");
+
+                table.AddRow(course.CourseName, course.InstructorName, course.Schedule, course.Credits.ToString());
+
+                AnsiConsole.Render(table);
+            }
+            else
+            {
+                AnsiConsole.WriteLine("[bold red]No course found.[/]");
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using Spectre.Console;
+using StudyTracker.Entities;
 using StudyTracker.Services;
 
 namespace StudyTracker.Uis
@@ -9,9 +11,11 @@ namespace StudyTracker.Uis
         private readonly StudyPlanUi _studyPlanUi;
         private readonly ProgressRecordUi _progressRecordUi;
         private readonly StudentUi _studentUi;
+        private readonly CourseService _courseService;
 
         public MainUi(CourseService courseService, StudyPlanService studyPlanService, ProgressRecordService progressRecordService, StudentService studentService)
         {
+            _courseService = courseService;
             _courseUi = new CourseUi(courseService);
             _studyPlanUi = new StudyPlanUi(studyPlanService);
             _progressRecordUi = new ProgressRecordUi(progressRecordService);
@@ -26,8 +30,8 @@ namespace StudyTracker.Uis
                 AnsiConsole.Clear();
                 AnsiConsole.Write(
                     new FigletText("* Main Menu *")
-                    .LeftAligned()
-                    .Color(Color.Red1));
+                        .LeftJustified()
+                        .Color(Color.Red1));
                 var choice = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("[green]*** Choose an option ***[/]?")
@@ -36,7 +40,7 @@ namespace StudyTracker.Uis
                         {
                             "Course Details", "Study Plans",
                             "Progress Records", "Register", "Login",
-                            "Exit"
+                            "Create Course", "Exit"
                         }));
                 switch (choice)
                 {
@@ -60,6 +64,10 @@ namespace StudyTracker.Uis
                         _studentUi.Login();
                         break;
 
+                    case "Create Course":
+                        CreateCourse();
+                        break;
+
                     case "Exit":
                         keepRunning = false;
                         break;
@@ -68,6 +76,20 @@ namespace StudyTracker.Uis
                 AnsiConsole.WriteLine("[yellow]Press Enter to continue...[/]");
                 Console.ReadKey(true);
             }
+        }
+
+        private void CreateCourse()
+        {
+            var course = new Course();
+
+            AnsiConsole.WriteLine("[bold green]Enter course details:[/]");
+            course.CourseName = AnsiConsole.Ask<string>("Course Name:");
+            course.InstructorName = AnsiConsole.Ask<string>("Instructor Name:");
+            course.Schedule = AnsiConsole.Ask<string>("Schedule:");
+            course.Credits = AnsiConsole.Ask<int>("Credits:");
+
+            _courseService.SaveCourse(course);
+            AnsiConsole.WriteLine("[bold green]Course saved successfully![/]");
         }
     }
 }

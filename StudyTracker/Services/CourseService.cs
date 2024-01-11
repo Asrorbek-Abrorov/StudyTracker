@@ -18,7 +18,7 @@ public class CourseService
         };
 
         File.WriteAllLines(CoursesFilePath, lines);
-        AnsiConsole.MarkupLine("[bold green]Course saved successfully![/]");
+        AnsiConsole.WriteLine("[bold green]Course saved successfully![/]");
     }
 
     public Course GetCourse()
